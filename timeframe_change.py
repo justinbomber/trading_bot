@@ -1,6 +1,7 @@
 import pandas as pd
 from datetime import datetime
 
+# this transfer_timeframe can convert an timeframe to another
 def transfer_timeframe(timefrm,timename,coin):
     cb15m_df = pd.read_csv('C:\\Users\\justin\\Desktop\\data\\coinbase_ETH_df15m.csv')
     cb15m_df = cb15m_df[['Time', 'open', 'high', 'low', 'close', 'volume']]
@@ -42,8 +43,7 @@ def DEMA(data, Time_period):
 
     return DEMA
 
-
-def awesomefunc(self, df:DataFrame, timeperiod, timeframe):
+def awesomefunc(df, timeperiod, timeframe):
     cb15m_df = df
     cb15m_df = cb15m_df[['Time', 'open', 'high', 'low', 'close', 'volume']]
     cb15m_df['Time'] = cb15m_df['Time'].apply(lambda x: datetime.strptime(x, '%Y/%m/%d %H:%M'))
