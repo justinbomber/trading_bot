@@ -25,14 +25,16 @@ from datetime import datetime
 # check_data.to_csv("C:\\Users\\justin\\Desktop\\trade_record.csv")
 
 
-pattern = re.compile(r'.+\.csv')
-paththefile = []
-for root, dirs, files in os.walk(r"C:\\Users\\justin\\Desktop\\data\\binance_eth\\"):
-    for name in files:
-        file_path = os.path.join(root, name)  # 包含路徑的檔案
-        if pattern.search(file_path) is not None:
-            # print(file_path)#匹配到的檔案 檔案路徑名
-            paththefile.append(file_path)
+def traverse_data(the_folder):
+    pattern = re.compile(r'.+\.csv')
+    paththefile = []
+    for root, dirs, files in os.walk(r"C:\\"):
+        for name in files:
+            file_path = os.path.join(root, name)  # the folder that you want to traverse
+            if pattern.search(file_path) is not None:
+                # print(file_path) #the file that fit the root name.
+                paththefile.append(file_path)
+    return paththefile
 
 
 
@@ -42,11 +44,6 @@ def tojson(file_path):
     # dtframe.set_index(pd.DatetimeIndex(dtframe['Time'].values))
     new_path = file_path[:-3] + 'json'
     dtframe.to_json(new_path, orient='values')
-
-
-for i in paththefile:
-    tojson(i)
-
 
 
 def EMA(data, Time_period, column_name):
@@ -105,32 +102,32 @@ def supertrend(df, period=43, atr_multiplier=3):
 
     return df
 
-def TD9(df):
-    close_np = [i for i in df['close']]
-    close_shift = np.full_like(close_np, np.nan)
-    close_shift[:4] = 0
-    close_shift[4:] = close_np[:-4]
-    compare_array = close_np > close_shift
-    result = np.empty(len(close_np), int)
-    counting_number: int = 0
-    for i in range(len(close_np)):
-        if np.isnan(close_shift[i]):
-            result[i] = 0
-        else:
-            compare_bool = compare_array[i]
-            if compare_bool:
-                if counting_number >= 0:
-                    counting_number += 1
-                else:
-                    counting_number = 1
-            else:
-                if counting_number <= 0:
-                    counting_number -= 1
-                else:
-                    counting_number = -1
-            result[i] = counting_number
-    df['td9'] = pd.DataFrame(result)
-    return df
+# def TD9(df):
+#     close_np = [i for i in df['close']]
+#     close_shift = np.full_like(close_np, np.nan)
+#     close_shift[:4] = 0
+#     close_shift[4:] = close_np[:-4]
+#     compare_array = close_np > close_shift
+#     result = np.empty(len(close_np), int)
+#     counting_number: int = 0
+#     for i in range(len(close_np)):
+#         if np.isnan(close_shift[i]):
+#             result[i] = 0
+#         else:
+#             compare_bool = compare_array[i]
+#             if compare_bool:
+#                 if counting_number >= 0:
+#                     counting_number += 1
+#                 else:
+#                     counting_number = 1
+#             else:
+#                 if counting_number <= 0:
+#                     counting_number -= 1
+#                 else:
+#                     counting_number = -1
+#             result[i] = counting_number
+#     df['td9'] = pd.DataFrame(result)
+#     return df
 
 
 def TD(klinedata):
