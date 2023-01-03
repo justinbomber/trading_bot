@@ -21,8 +21,8 @@ pd.set_option('display.max_columns', None)
 warnings.filterwarnings('ignore')
 
 exchange = ccxt.binance({
-    "apiKey": 'FvlXcNojqLgCNHRjMX6XQxWVQRvTyv0LkKViQ7FCtI5kqqhUR84Ipu6Mrhd0rms5',
-    "secret": 'X3sBUNvqWujkEh9nIxTXGChBbgdCznh7RInUaTIzvgbrWPuqKJV2mw69ywCoCmQJ',
+    "apiKey": '',
+    "secret": '',
     'enableRateLimit': True})
 
 exchange.load_markets()
