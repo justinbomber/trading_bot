@@ -1,4 +1,4 @@
-#This is some codes of grabbing data from bianance and coinbase
+# This is some codes of grabbing data from bianance and coinbase
 
 * ## Binance : binance_find_data.py
 Use **binance_find_data.py** to grab data from binance.
